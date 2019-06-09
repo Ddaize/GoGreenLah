@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "256972570146",
+    "firebase_url": "https://gogreenlah-b92ec.firebaseio.com",
+    "project_id": "gogreenlah-b92ec",
+    "storage_bucket": "gogreenlah-b92ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256972570146:android:44cca59d3cf6c949",
+        "android_client_info": {
+          "package_name": "com.example.gogreenlah"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256972570146-fjt4k84niov3m2vi2jaft1to7tv4oe5m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmbnOFy5pqKT0Mt8SPFhm-uGZs2n4S_zU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256972570146-fjt4k84niov3m2vi2jaft1to7tv4oe5m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
