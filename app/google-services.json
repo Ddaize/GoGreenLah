@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "256972570146-a8mgt0c3eba08jbvqnvqcviu7e4ccuv9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gogreenlah",
+            "certificate_hash": "f041589129fa3c89b1614c657d3d255362114f87"
+          }
+        },
+        {
           "client_id": "256972570146-fjt4k84niov3m2vi2jaft1to7tv4oe5m.apps.googleusercontent.com",
           "client_type": 3
         }
