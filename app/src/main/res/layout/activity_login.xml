@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <LinearLayout
         android:gravity="center_vertical"
@@ -17,7 +17,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User Registration" />
+            android:text="User login" />
 
         <EditText
             android:layout_margin="15dp"
@@ -25,31 +25,32 @@
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter your email" />
+            android:hint="Enter your email"
+            android:autofillHints="" />
         <EditText
             android:layout_margin="15dp"
             android:inputType="textPassword"
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter your password" />
+            android:hint="Enter your password"
+            android:importantForAutofill="no" />
 
         <Button
             android:layout_margin="15dp"
-            android:id="@+id/buttonRegister"
-            android:text="Register User"
+            android:id="@+id/buttonSignIn"
+            android:text="LOGIN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
             android:textAlignment="center"
-            android:text="Already registered? Sign in here"
-            android:id="@+id/textViewSignIn"
+            android:text="Do not have an account? Sign Up here"
+            android:id="@+id/textViewSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
 
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
-
-
