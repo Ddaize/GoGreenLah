@@ -1,4 +1,4 @@
- package com.example.gogreenlah;
+package com.example.gogreenlah;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,7 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
- public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonSignIn;
     private EditText editTextEmail;
@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
     private TextView textViewSignUp;
 
     private FirebaseAuth firebaseAuth;
+
     private ProgressDialog progressDialog;
 
     @Override
@@ -35,11 +36,12 @@ import com.google.firebase.auth.FirebaseAuth;
         firebaseAuth = FirebaseAuth.getInstance();
 
 
-
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
         textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
+
+        progressDialog = new ProgressDialog(this);
 
         buttonSignIn.setOnClickListener(this);
         textViewSignUp.setOnClickListener(this);
@@ -71,7 +73,7 @@ import com.google.firebase.auth.FirebaseAuth;
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         //start profile
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         }
@@ -79,16 +81,16 @@ import com.google.firebase.auth.FirebaseAuth;
                 });
     }
 
-     @Override
-     public void onClick(View view) {
+    @Override
+    public void onClick(View view) {
         if (view == buttonSignIn) {
             userLogin();
         }
 
         if (view == textViewSignUp) {
             finish();
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
 
-     }
- }
+    }
+}
