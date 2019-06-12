@@ -7,19 +7,20 @@
     tools:context=".ProfileActivity">
 
     <LinearLayout
-        android:layout_width="395dp"
-        android:layout_height="715dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"
-        tools:ignore="MissingConstraints">
+        tools:layout_editor_absoluteY="8dp">
 
         <TextView
             android:id="@+id/textViewUserEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="profile activity, 5 coloumns tbc" />
+            android:text="profile activity, 5 features" />
 
         <Button
             android:id="@+id/buttonLogout"
@@ -27,6 +28,35 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Logout" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/buttonFeatureOnePage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1. Give away item"
+            />
+        <Button
+            android:id="@+id/buttonFeatureTwoPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2. Request for item"
+            />
+        <Button
+            android:id="@+id/buttonFeatureThreePage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3. Search for recycling bins"
+            />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
