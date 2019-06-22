@@ -50,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonFeatureThreePage = (Button) findViewById(R.id.buttonFeatureThreePage);
 
         buttonFeatureOnePage.setOnClickListener(this);
+        buttonFeatureThreePage.setOnClickListener(this);
 
     }
 
