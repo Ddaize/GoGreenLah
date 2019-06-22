@@ -105,7 +105,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         if (view == textViewSignIn) {
             //open login activity
+            Toast.makeText(this, "log in...", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, LoginActivity.class));
+            
         }
     }
 }

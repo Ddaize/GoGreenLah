@@ -139,7 +139,7 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
             if (uploadTask != null && uploadTask.isInProgress()) {
                 Toast.makeText(this, "Uploading..., please wait", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "test", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "test", Toast.LENGTH_LONG).show();
                 uploadFile();
             }
         }
