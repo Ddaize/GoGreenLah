@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,6 +67,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             //open feature 2
         }
         if (view == buttonFeatureThreePage) {
+            Toast.makeText(this, "open feature 3", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, featureThreeActivity.class));
             //open feature 3
         }
     }
