@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".featureThreeActivity"></activity>
+        <activity android:name=".featureTwoActivity"></activity>
+        <activity android:name=".featureThreeActivity" />
         <activity android:name=".featureOneActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".LoginActivity" />

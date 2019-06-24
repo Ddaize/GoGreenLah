@@ -50,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonFeatureThreePage = (Button) findViewById(R.id.buttonFeatureThreePage);
 
         buttonFeatureOnePage.setOnClickListener(this);
+        buttonFeatureTwoPage.setOnClickListener(this);
         buttonFeatureThreePage.setOnClickListener(this);
 
     }
@@ -65,6 +66,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(new Intent(this, featureOneActivity.class));
         }
         if (view == buttonFeatureTwoPage) {
+            startActivity(new Intent(this, featureThreeActivity.class));
             //open feature 2
         }
         if (view == buttonFeatureThreePage) {

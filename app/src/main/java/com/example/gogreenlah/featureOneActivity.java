@@ -45,7 +45,6 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
 
     private StorageTask uploadTask;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,9 +59,8 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
         buttonUpload.setOnClickListener(this);
         buttonChooseImage.setOnClickListener(this);
 
-        storageRef = FirebaseStorage.getInstance().getReference();
-        databaseRef = FirebaseDatabase.getInstance().getReference();
-
+        storageRef = FirebaseStorage.getInstance().getReference("uploads");
+        databaseRef = FirebaseDatabase.getInstance().getReference("uploads");
     }
 
     private void openFileChooser() {
@@ -125,11 +123,11 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            progressBar.setProgress(100);
+                            progressBar.setProgress((int) progress);
                         }
                     });
         } else {
-            Toast.makeText(this, "No File Selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Choose an image file", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -141,6 +139,7 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
             } else {
                 //Toast.makeText(this, "test", Toast.LENGTH_LONG).show();
                 uploadFile();
+                imageUri = null;
             }
         }
         if (view == buttonChooseImage) {
