@@ -66,7 +66,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(new Intent(this, featureOneActivity.class));
         }
         if (view == buttonFeatureTwoPage) {
-            startActivity(new Intent(this, featureThreeActivity.class));
+            startActivity(new Intent(this, featureTwoActivity.class));
             //open feature 2
         }
         if (view == buttonFeatureThreePage) {

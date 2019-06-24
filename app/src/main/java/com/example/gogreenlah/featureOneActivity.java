@@ -3,11 +3,13 @@ package com.example.gogreenlah;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -96,6 +99,8 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
 
             uploadTask = fileReference.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        private static final String TAG = "featureOneActivity";
+
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             //progressBar.setProgress(0);
@@ -107,8 +112,13 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
                                 }
                             }, 500);
                             Toast.makeText(featureOneActivity.this, "upload successful", Toast.LENGTH_LONG).show();
+
+                            Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                            while (!urlTask.isSuccessful());
+                            Uri downloadUri = urlTask.getResult();
+                            Log.d(TAG,"onSuccess:firebase download url: " + downloadUri.toString());
                             ImageUpload imageUpload = new ImageUpload(editTextImageName.getText().toString().trim(),
-                                    taskSnapshot.getStorage().getDownloadUrl().toString());
+                                    downloadUri.toString());
                             String imageUploadID = databaseRef.push().getKey();
                             databaseRef.child(imageUploadID).setValue(imageUpload);
                         }
@@ -139,7 +149,7 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
             } else {
                 //Toast.makeText(this, "test", Toast.LENGTH_LONG).show();
                 uploadFile();
-                imageUri = null;
+              //  imageUri = null;
             }
         }
         if (view == buttonChooseImage) {
