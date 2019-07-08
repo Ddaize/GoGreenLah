@@ -20,6 +20,14 @@
         android:layout_below="@id/buttonChooseImage"
         android:layout_marginTop="210dp"
         android:hint="2.Enter item name" />
+    <Spinner
+        android:id="@+id/spinnerItemType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/editTextImageName"
+        >
+    </Spinner>
 
 
     <ImageView

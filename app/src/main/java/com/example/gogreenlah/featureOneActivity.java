@@ -8,10 +8,12 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,6 +57,14 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
         editTextImageName = findViewById(R.id.editTextImageName);
         imageView = findViewById(R.id.imageView);
         progressBar = findViewById(R.id.progressBar);
+
+        Spinner mySpinner = findViewById(R.id.spinnerItemType);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(featureOneActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.names));
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mySpinner.setAdapter(spinnerAdapter);
+        mySpinner.setSelection(3);
+
 
         buttonUpload.setOnClickListener(this);
         buttonChooseImage.setOnClickListener(this);

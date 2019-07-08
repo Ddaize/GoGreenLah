@@ -26,7 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".featureTwoActivity"></activity>
+        <activity android:name=".featureTwoActivity" />
         <activity android:name=".featureThreeActivity" />
         <activity android:name=".featureOneActivity" />
         <activity android:name=".ProfileActivity" />
