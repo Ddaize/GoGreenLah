@@ -68,7 +68,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             //open feature 2
         }
         if (view == buttonFeatureThreePage) {
-            Toast.makeText(this, "open feature 3", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, featureThreeActivity.class));
             //open feature 3
         }
