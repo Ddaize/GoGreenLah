@@ -2,6 +2,7 @@ package com.example.gogreenlah;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,8 +64,7 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.names));
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(spinnerAdapter);
-        mySpinner.setSelection(3);
-
+        mySpinner.setSelection(0);
 
         buttonUpload.setOnClickListener(this);
         buttonChooseImage.setOnClickListener(this);
@@ -81,7 +81,7 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null &&
@@ -121,10 +121,12 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
                             Toast.makeText(featureOneActivity.this, "upload successful", Toast.LENGTH_LONG).show();
 
                             Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
-                            while (!urlTask.isSuccessful());
+                            while (!urlTask.isSuccessful()) ;
                             Uri downloadUri = urlTask.getResult();
-                            Log.d(TAG,"onSuccess:firebase download url: " + downloadUri.toString());
+                            Log.d(TAG, "onSuccess:firebase download url: " + downloadUri.toString());
+                            Spinner spinner = findViewById(R.id.spinnerItemType);
                             ImageUpload imageUpload = new ImageUpload(editTextImageName.getText().toString().trim(),
+                                    spinner.getSelectedItem().toString(),
                                     downloadUri.toString());
                             String imageUploadID = databaseRef.push().getKey();
                             databaseRef.child(imageUploadID).setValue(imageUpload);
@@ -139,7 +141,7 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                           double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
                             progressBar.setProgress((int) progress);
                         }
                     });
@@ -148,15 +150,22 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    private void openDialog() {
+        ImageDescDialog imageDialog = new ImageDescDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("uri", imageUri.toString());
+        imageDialog.setArguments(bundle);
+        imageDialog.show(getSupportFragmentManager(), "image description");
+    }
+
     @Override
     public void onClick(View view) {
         if (view == buttonUpload) {
             if (uploadTask != null && uploadTask.isInProgress()) {
                 Toast.makeText(this, "Uploading..., please wait", Toast.LENGTH_SHORT).show();
             } else {
-                //Toast.makeText(this, "test", Toast.LENGTH_LONG).show();
                 uploadFile();
-              //  imageUri = null;
+                openDialog();
             }
         }
         if (view == buttonChooseImage) {

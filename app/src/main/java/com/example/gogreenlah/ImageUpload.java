@@ -10,12 +10,13 @@ public class ImageUpload {
         //empty constructor is needed
     }
 
-    public ImageUpload(String name, String imageUrl) {
+    public ImageUpload(String name, String itemType, String imageUrl) {
         if (name.trim().equals("")) {
             name = "Untitled";
         }
         this.imageName = name;
         this.imageUrl = imageUrl;
+        this.itemType = itemType;
     }
 
     public String getImageName() {
