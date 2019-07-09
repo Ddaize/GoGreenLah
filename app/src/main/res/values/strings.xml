@@ -6,8 +6,9 @@
         <item>Furniture</item>
         <item>Electronic</item>
         <item>Clothes</item>
-        <item>3. Selected item type</item>
+        <item>Stationary</item>
+        <item>Others</item>
     </string-array>
 
-        
+
 </resources>
