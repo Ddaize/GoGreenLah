@@ -10,11 +10,13 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.view.View;
 import android.Manifest;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -31,16 +33,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.Map;
 
-public class featureThreeActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener {
+public class featureThreeActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationButtonClickListener {
 
     GoogleMap map;
     private Button buttonRequestLocation;
-    private final int REQUEST_LOCATION_PERMISSION = 1;
-    //private LocationManager locationManager;
-    //private String provider;
+    private static final int REQUEST_LOCATION_PERMISSION = 1;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -61,7 +64,6 @@ public class featureThreeActivity extends FragmentActivity implements OnMapReady
     public void onClick(View view) {
         if (ContextCompat.checkSelfPermission(featureThreeActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            //map.setMyLocationEnabled(true);
             Toast.makeText(featureThreeActivity.this, "You have already granted this permission", Toast.LENGTH_SHORT).show();
         } else {
             requestLocationPermission();
@@ -92,25 +94,50 @@ public class featureThreeActivity extends FragmentActivity implements OnMapReady
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == REQUEST_LOCATION_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
+                if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    this.map.setMyLocationEnabled(true);
+                    this.map.setOnMyLocationButtonClickListener(this);
+                    this.map.setOnMyLocationClickListener(this);
+                    Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
         this.map = googleMap;
+
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            googleMap.setMyLocationEnabled(true);
+            googleMap.setOnMyLocationButtonClickListener(this);
+            googleMap.setOnMyLocationClickListener(this);
+        }
 
         LatLng NUS = new LatLng(1.290665504, 103.772663576);
         map.addMarker(new MarkerOptions().position(NUS).title("NUS"));
         map.moveCamera(CameraUpdateFactory.newLatLng(NUS));
     }
 
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false;
+    }
 }
