@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,8 +35,14 @@ public class ImageDescDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(getContext(), ImageDetails.class);
                         Bundle argument = getArguments();
+                        String imageID = argument.getString("id");
                         String imageUri = argument.getString("uri");
-                        intent.putExtra("uri", imageUri);
+
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", imageID);
+                        bundle.putString("uri", imageUri);
+                        intent.putExtras(bundle);
                         startActivity(intent);
                     }
                 });

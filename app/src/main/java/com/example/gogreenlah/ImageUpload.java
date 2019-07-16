@@ -1,22 +1,27 @@
 package com.example.gogreenlah;
 
+import android.net.Uri;
+
 public class ImageUpload {
     private String imageName;
     private String imageUrl;
     private String itemType;
     private String itemDescription;
+    private Uri imageUri;
+    private String itemID;
 
     public ImageUpload() {
         //empty constructor is needed
     }
 
-    public ImageUpload(String name, String itemType, String imageUrl) {
+    public ImageUpload(String name, String itemType, String imageUrl, String itemID) {
         if (name.trim().equals("")) {
             name = "Untitled";
         }
         this.imageName = name;
         this.imageUrl = imageUrl;
         this.itemType = itemType;
+        this.itemID = itemID;
     }
 
     public String getImageName() {
