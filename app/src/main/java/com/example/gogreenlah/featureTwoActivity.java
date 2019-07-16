@@ -23,9 +23,6 @@ import java.util.List;
 public class featureTwoActivity extends AppCompatActivity implements ImageAdapter.OnImageClickListener {
 
     public static final String EXTRA_URL = "imageUrl";
-    public static final String EXTRA_CREATOR = "creatorName";
-    public static final String EXTRA_LIKES = "likeCount";
-
 
     private RecyclerView recyclerView;
     private ImageAdapter adapter;
@@ -46,13 +43,18 @@ public class featureTwoActivity extends AppCompatActivity implements ImageAdapte
 
         uploads = new ArrayList<>();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("uploads");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("uploads");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
-                    ImageUpload upload = postSnapShot.getValue(ImageUpload.class);
+                    ImageUpload upload;
+                    String itemName = postSnapShot.child("itemName").getValue().toString();
+                    String itemID = postSnapShot.child("itemID").getValue().toString();
+                    String itemImage = postSnapShot.child("image").getValue().toString();
+                    String itemType = postSnapShot.child("itemType").getValue().toString();
+                    upload = new ImageUpload(itemName,itemType, itemImage, itemID);
                     uploads.add(upload);
                 }
 
