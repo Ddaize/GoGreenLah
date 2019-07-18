@@ -2,7 +2,6 @@ package com.example.gogreenlah;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class featureTwoActivity extends AppCompatActivity implements ImageAdapter.OnImageClickListener {
+public class featureTwoActivity extends AppCompatActivity implements OnImageClickListener {
 
     public static final String EXTRA_URL = "imageUrl";
 
@@ -54,7 +53,13 @@ public class featureTwoActivity extends AppCompatActivity implements ImageAdapte
                     String itemID = postSnapShot.child("itemID").getValue().toString();
                     String itemImage = postSnapShot.child("image").getValue().toString();
                     String itemType = postSnapShot.child("itemType").getValue().toString();
-                    upload = new ImageUpload(itemName,itemType, itemImage, itemID);
+                    if (postSnapShot.child("itemDescription").getValue()!= null) {
+                        String itemDescription = postSnapShot.child("itemDescription").getValue().toString();
+                        upload = new ImageUpload(itemName, itemType, itemImage, itemID, itemDescription);
+
+                    } else {
+                        upload = new ImageUpload(itemName, itemType, itemImage, itemID);
+                    }
                     uploads.add(upload);
                 }
 
@@ -73,11 +78,13 @@ public class featureTwoActivity extends AppCompatActivity implements ImageAdapte
     @Override
     public void onImageClick(int position) {
 
-        Intent intent = new Intent(this, requestItemActivity.class);
+        Intent intent = new Intent(this, RequestItemActivity.class);
         ImageUpload clickedImage = uploads.get(position);
-        intent.putExtra(EXTRA_URL, clickedImage.getImageUrl());
+        intent.putExtra("image", clickedImage);
         startActivity(intent);
-
-
     }
+
+
+
+
 }

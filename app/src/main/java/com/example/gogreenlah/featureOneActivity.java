@@ -2,12 +2,10 @@ package com.example.gogreenlah;
 
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
@@ -35,9 +33,9 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.util.HashMap;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class featureOneActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -201,7 +199,7 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
         productMap.put("itemID", productRandomKey);
         productMap.put("date", saveCurrentDate);
         productMap.put("time", saveCurrentTime);
-        //  productMap.put("description", Description);
+        productMap.put("itemDescription", null);
         productMap.put("image", downloadImageUrl);
         productMap.put("itemType", itemType);
         //productMap.put("price", Price);

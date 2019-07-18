@@ -4,7 +4,8 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.gogreenlah"
-        minSdkVersion 19
+        //changed from 18 to 24
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
