@@ -99,8 +99,7 @@ public class ImageDetails extends AppCompatActivity implements View.OnClickListe
                     ImageUpload imageUpload = dataSnapshot.getValue(ImageUpload.class);
                   //  imageUpload.setItemDescription(itemDescription);
                 }
-                SaveProductInfoToDatabase();
-
+                saveProductInfoToDatabase();
             }
 
             @Override
@@ -111,7 +110,7 @@ public class ImageDetails extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void SaveProductInfoToDatabase() {
+    private void saveProductInfoToDatabase() {
         HashMap<String, Object> productMap = new HashMap<>();
       //  productMap.put("itemID", productRandomKey);
      //   productMap.put("date", saveCurrentDate);

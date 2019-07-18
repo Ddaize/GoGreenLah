@@ -9,6 +9,15 @@
         <item>Stationary</item>
         <item>Others</item>
     </string-array>
+
+    <string-array name="filteredList">
+        <item>All</item>
+        <item>Furniture</item>
+        <item>Electronic</item>
+        <item>Clothes</item>
+        <item>Stationary</item>
+        <item>Others</item>
+    </string-array>
     <string name="title_activity_request_item">requestItemActivity</string>
 
 

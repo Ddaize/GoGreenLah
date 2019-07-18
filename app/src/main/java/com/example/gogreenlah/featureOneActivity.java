@@ -47,9 +47,11 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
     private ImageView imageView;
     private ProgressBar progressBar;
 
+    //item attributes
     private String productRandomKey;
     private String saveCurrentDate, saveCurrentTime;
     private String itemName, itemType, itemURL;
+    private Integer requestNumber = 0;
 
     private Uri imageUri;
     private String downloadImageUrl;
@@ -202,8 +204,9 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
         productMap.put("itemDescription", null);
         productMap.put("image", downloadImageUrl);
         productMap.put("itemType", itemType);
-        //productMap.put("price", Price);
+        productMap.put("requestNumber", requestNumber);
         productMap.put("itemName", itemName);
+        productMap.put("requestInfo", " ");
 
         databaseRef.child(productRandomKey).updateChildren(productMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

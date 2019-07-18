@@ -11,12 +11,14 @@ public class ImageUpload implements Serializable {
     private String itemDescription;
     private Uri imageUri;
     private String itemID;
+    private int requestNumber;
+    private String requestInfo;
 
     public ImageUpload() {
         //empty constructor is needed
     }
 
-    public ImageUpload(String name, String itemType, String imageUrl, String itemID) {
+    public ImageUpload(String name, String itemType, String imageUrl, String itemID, String requestInfo, int requestNumber) {
         if (name.trim().equals("")) {
             name = "Untitled";
         }
@@ -24,9 +26,12 @@ public class ImageUpload implements Serializable {
         this.imageUrl = imageUrl;
         this.itemType = itemType;
         this.itemID = itemID;
+        this.requestNumber = requestNumber;
+        this.requestInfo = requestInfo;
     }
 
-    public ImageUpload(String name, String itemType, String imageUrl, String itemID, String itemDescription) {
+    public ImageUpload(String name, String itemType, String imageUrl, String itemID, String requestInfo,
+                       int requestNumber, String itemDescription) {
         if (name.trim().equals("")) {
             name = "Untitled";
         }
@@ -34,7 +39,9 @@ public class ImageUpload implements Serializable {
         this.imageUrl = imageUrl;
         this.itemType = itemType;
         this.itemID = itemID;
+        this.requestNumber = requestNumber;
         this.itemDescription = itemDescription;
+        this.requestInfo = requestInfo;
     }
 
     public String getImageName() {
@@ -55,11 +62,25 @@ public class ImageUpload implements Serializable {
         return itemType;
     }
 
+    public int getRequestNumber() {
+        return requestNumber;
+    }
 
+    public String getRequestInfo() {
+        return requestInfo;
+    }
+
+    public void setRequestNumber() {
+        requestNumber++;
+    }
 
     public void setImageUrl(String imageUrl) {
 
         this.imageUrl = imageUrl;
+    }
+
+    public String getItemID() {
+        return itemID;
     }
 
     public void setItemType(String itemType) {
