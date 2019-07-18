@@ -206,7 +206,7 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
         productMap.put("itemType", itemType);
         productMap.put("requestNumber", requestNumber);
         productMap.put("itemName", itemName);
-        productMap.put("requestInfo", " ");
+        productMap.put("requestInfo", "");
 
         databaseRef.child(productRandomKey).updateChildren(productMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -34,6 +34,7 @@ public class RequestItemActivity extends AppCompatActivity implements View.OnCli
     private Button requestButton;
     private ImageUpload itemRequest;
     private DatabaseReference databaseReference;
+    private boolean requested;
 
 
     @Override
@@ -54,7 +55,6 @@ public class RequestItemActivity extends AppCompatActivity implements View.OnCli
 
         Intent intent = getIntent();
         ImageUpload item = (ImageUpload) intent.getSerializableExtra("image");
-        this.itemRequest = item;
 
         Picasso.get().load(item.getImageUrl()).into(imageView);
         imageName.setText(item.getImageName());
@@ -65,7 +65,12 @@ public class RequestItemActivity extends AppCompatActivity implements View.OnCli
 
         databaseReference = FirebaseDatabase.getInstance().getReference("uploads").child(imageID);
 
-       textViewRequestInfo.setText( " " + requestNumber + " people have requested for this item" + "\n" + item.getRequestInfo() );
+        if (requestNumber <= 1) {
+            textViewRequestInfo.setText(" Number of request: " + requestNumber + "\n" + item.getRequestInfo() );
+        } else {
+            textViewRequestInfo.setText(" Number of request: " + requestNumber + "\n" + item.getRequestInfo());
+        }
+        this.itemRequest = item;
 
      //   Toast.makeText(this, item.getItemDescription(), Toast.LENGTH_SHORT).show();
 
@@ -76,11 +81,14 @@ public class RequestItemActivity extends AppCompatActivity implements View.OnCli
         if (v == requestButton) {
             if (TextUtils.isEmpty(editTextRequestInfo.getText().toString())) {
                 Toast.makeText(this, "Please enter your tele...", Toast.LENGTH_SHORT).show();
+            } else if (requested) {
+                Toast.makeText(RequestItemActivity.this, "Already requested", Toast.LENGTH_SHORT).show();
             } else {
-                requestInfo += "" + editTextRequestInfo.getText().toString() + "\n";
-                itemRequest.setRequestNumber();
+                requested = true;
+                requestInfo = itemRequest.getRequestInfo() + "\n @" + editTextRequestInfo.getText().toString();
                 requestNumber++;
                 saveProductInfoToDatabase();
+                textViewRequestInfo.setText(" Number of request: " + requestNumber + "\n" + requestInfo);
             }
         }
     }
@@ -95,9 +103,9 @@ public class RequestItemActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(RequestItemActivity.this, RequestItemActivity.class);
-                            intent.putExtra("image", itemRequest);
-                            startActivity(intent);
+//                            Intent intent = new Intent(RequestItemActivity.this, RequestItemActivity.class);
+//                            intent.putExtra("image", itemRequest);
+//                            startActivity(intent);
 //
 //                            loadingBar.dismiss();
                            Toast.makeText(RequestItemActivity.this, "Requested for item", Toast.LENGTH_SHORT).show();
