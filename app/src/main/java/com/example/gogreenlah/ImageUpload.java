@@ -2,7 +2,9 @@ package com.example.gogreenlah;
 
 import android.net.Uri;
 
-public class ImageUpload {
+import java.io.Serializable;
+
+public class ImageUpload implements Serializable {
     private String imageName;
     private String imageUrl;
     private String itemType;
@@ -24,6 +26,17 @@ public class ImageUpload {
         this.itemID = itemID;
     }
 
+    public ImageUpload(String name, String itemType, String imageUrl, String itemID, String itemDescription) {
+        if (name.trim().equals("")) {
+            name = "Untitled";
+        }
+        this.imageName = name;
+        this.imageUrl = imageUrl;
+        this.itemType = itemType;
+        this.itemID = itemID;
+        this.itemDescription = itemDescription;
+    }
+
     public String getImageName() {
 
         return imageName;
@@ -33,14 +46,16 @@ public class ImageUpload {
 
         return imageUrl;
     }
+    public String getItemDescription() {
+
+        return itemDescription;
+    }
 
     public String getItemType() {
         return itemType;
     }
 
-    public String getItemDescription() {
-        return itemDescription;
-    }
+
 
     public void setImageUrl(String imageUrl) {
 
