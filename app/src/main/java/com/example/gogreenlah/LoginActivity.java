@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private ProgressDialog progressDialog;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         buttonSignIn.setOnClickListener(this);
         textViewSignUp.setOnClickListener(this);
+
     }
 
     private void userLogin() {
@@ -76,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         //start profile
                         if (task.isSuccessful()) {
                             finish();
-                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                            startActivity(new Intent(getApplicationContext(), NavigationActivity.class));
                         }
                     }
                 });

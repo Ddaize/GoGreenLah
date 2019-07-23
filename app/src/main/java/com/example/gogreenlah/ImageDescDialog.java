@@ -26,7 +26,7 @@ public class ImageDescDialog extends AppCompatDialogFragment {
                 .setNegativeButton("later", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getContext(), ProfileActivity.class));
+                        startActivity(new Intent(getContext(), NavigationActivity.class));
                     }
                 })
                 .setPositiveButton("yes", new DialogInterface.OnClickListener() {

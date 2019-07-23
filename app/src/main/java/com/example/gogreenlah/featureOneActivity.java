@@ -24,6 +24,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -101,7 +103,6 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
                 data.getData() != null) {
             imageUri = data.getData();
             Picasso.get().load(imageUri).fit().into(imageView);
-            //imageView.setImageURI(imageUri);
         }
     }
 
@@ -179,7 +180,8 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
 
                                 //Toast.makeText(AdminAddNewProductActivity.this, "got the Product image Url Successfully...", Toast.LENGTH_SHORT).show();
 
-                                SaveProductInfoToDatabase();
+                                saveProductInfoToDatabase();
+                                saveProductInfoToUser();
                             }
                         }
                     });
@@ -196,7 +198,7 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void SaveProductInfoToDatabase() {
+    private void saveProductInfoToDatabase() {
         HashMap<String, Object> productMap = new HashMap<>();
         productMap.put("itemID", productRandomKey);
         productMap.put("date", saveCurrentDate);
@@ -213,15 +215,41 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-//                            Intent intent = new Intent(AdminAddNewProductActivity.this, AdminCategoryActivity.class);
-//                            startActivity(intent);
-//
-//                            loadingBar.dismiss();
-//                            Toast.makeText(AdminAddNewProductActivity.this, "Product is added successfully..", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(featureOneActivity.this, "Product is added successfully..", Toast.LENGTH_SHORT).show();
                         } else {
-//                            loadingBar.dismiss();
-//                            String message = task.getException().toString();
-//                            Toast.makeText(AdminAddNewProductActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(featureOneActivity.this, "Error: ", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+
+    private void saveProductInfoToUser() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference databaseUserRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+
+        HashMap<String, Object> productMap = new HashMap<>();
+
+        //add to this
+        //productMap.put("itemID", productRandomKey);
+        productMap.put("itemID", productRandomKey);
+        productMap.put("date", saveCurrentDate);
+        productMap.put("time", saveCurrentTime);
+        productMap.put("itemDescription", null);
+        productMap.put("image", downloadImageUrl);
+        productMap.put("itemType", itemType);
+        productMap.put("requestNumber", requestNumber);
+        productMap.put("itemName", itemName);
+        productMap.put("requestInfo", "");
+
+        databaseUserRef.child(productRandomKey).updateChildren(productMap)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(featureOneActivity.this, "Product is added to user successfully..", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(featureOneActivity.this, "Error: not able to add to user", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -252,6 +280,7 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
             openDialog();
         }
     }
+
 
     @Override
     public void onClick(View view) {

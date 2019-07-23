@@ -54,7 +54,6 @@ public class featureTwoActivity extends AppCompatActivity implements OnImageClic
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("uploads");
 
@@ -78,7 +77,6 @@ public class featureTwoActivity extends AppCompatActivity implements OnImageClic
                         upload = new ImageUpload(itemName, itemType, itemImage, itemID, requestInfo,requestNumber);
                     }
                     uploads.add(upload);
-                  //  uploadsFullList.add(upload);
                     uploadsFilteredList.add(upload);
                 }
 

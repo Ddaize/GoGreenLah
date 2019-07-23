@@ -29,7 +29,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".RequestItemActivity"></activity>
+        <activity android:name=".MyItemActivity"></activity>
+        <activity android:name=".UserProfileActivity" />
+        <activity
+            android:name=".NavigationActivity"
+            android:label="@string/title_activity_navigation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".RequestItemActivity" />
         <activity android:name=".ImageDetails" />
         <activity android:name=".featureTwoActivity" />
         <activity android:name=".featureThreeActivity" />

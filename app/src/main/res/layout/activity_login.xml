@@ -17,7 +17,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User login" />
+            android:text="GoGreenLah!" />
 
         <EditText
             android:layout_margin="15dp"

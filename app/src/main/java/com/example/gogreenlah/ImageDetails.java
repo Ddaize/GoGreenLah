@@ -34,7 +34,6 @@ public class ImageDetails extends AppCompatActivity implements View.OnClickListe
     private Button updateItemButton;
     private String itemDescription;
 
-    // private Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +54,11 @@ public class ImageDetails extends AppCompatActivity implements View.OnClickListe
         String imageString = extras.getString("uri");
 
         Uri imageUri = Uri.parse(imageString);
-       // Toast.makeText(this, imageID, Toast.LENGTH_SHORT).show();
         databaseReference = FirebaseDatabase.getInstance().getReference("uploads").child(imageID);
 
         Picasso.get().load(imageUri).fit().into(imageView);
 
         if (imageID != null) {
-            Toast.makeText(ImageDetails.this, imageID, Toast.LENGTH_SHORT).show();
             displaySpecificProductInformation();
         } else {
            Toast.makeText(ImageDetails.this, "null", Toast.LENGTH_SHORT).show();
@@ -75,10 +72,7 @@ public class ImageDetails extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                   // ImageUpload imageUpload = dataSnapshot.child("itemID").getValue().toString();
                     String name = dataSnapshot.child("itemName").getValue().toString();
-              //      String name = imageUpload.getImageName();
-                 //   Toast.makeText(ImageDetails.this, name + " x", Toast.LENGTH_SHORT).show();
                     imageName.setText(name);
                 }
             }
@@ -112,14 +106,7 @@ public class ImageDetails extends AppCompatActivity implements View.OnClickListe
 
     private void saveProductInfoToDatabase() {
         HashMap<String, Object> productMap = new HashMap<>();
-      //  productMap.put("itemID", productRandomKey);
-     //   productMap.put("date", saveCurrentDate);
-     //   productMap.put("time", saveCurrentTime);
-        //  productMap.put("description", Description);
-     //   productMap.put("image", downloadImageUrl);
-     //   productMap.put("itemType", itemType);
-        //productMap.put("price", Price);
-     //   productMap.put("itemName", itemName);
+
         productMap.put("itemDescription", itemDescription);
 
         databaseReference.updateChildren(productMap)

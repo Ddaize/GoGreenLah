@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         if (firebaseAuth.getCurrentUser() != null) {
             //Profile activity
             finish();
-            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            startActivity(new Intent(getApplicationContext(), NavigationActivity.class));
         }
 
         progressDialog = new ProgressDialog(this);
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         if (view == textViewSignIn) {
             //open login activity
-            Toast.makeText(this, "log in...", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "log in...", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, LoginActivity.class));
             
         }

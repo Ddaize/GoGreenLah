@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyItemActivity">
+
+    <TextView
+        android:id="@+id/textViewMyItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MY ITEMS"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColor="#000000"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMyItems"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/textViewMyItems">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>
