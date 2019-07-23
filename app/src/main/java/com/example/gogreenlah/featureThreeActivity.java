@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,7 +15,9 @@ import android.util.Log;
 import android.widget.Button;
 import android.view.View;
 import android.Manifest;
+import android.widget.CheckBox;
 import android.widget.Toast;
+import android.widget.ZoomControls;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -31,21 +34,34 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class featureThreeActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationButtonClickListener {
+public class featureThreeActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMarkerClickListener {
 
     GoogleMap map;
     private Button buttonRequestLocation;
     private static final int REQUEST_LOCATION_PERMISSION = 1;
 
+    private DatabaseReference mDatabase;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +72,6 @@ public class featureThreeActivity extends FragmentActivity implements OnMapReady
         mapFragment.getMapAsync(this);
 
         buttonRequestLocation = findViewById(R.id.buttonRequestLocation);
-
         buttonRequestLocation.setOnClickListener(this);
     }
 
@@ -113,9 +128,15 @@ public class featureThreeActivity extends FragmentActivity implements OnMapReady
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
 
         this.map = googleMap;
+
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        UiSettings mapUiSettings = googleMap.getUiSettings();
+        mapUiSettings.setAllGesturesEnabled(true);
+        mapUiSettings.setIndoorLevelPickerEnabled(true);
 
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             googleMap.setMyLocationEnabled(true);
@@ -123,10 +144,68 @@ public class featureThreeActivity extends FragmentActivity implements OnMapReady
             googleMap.setOnMyLocationClickListener(this);
         }
 
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("coordinates");
+
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                List <MarkerData> coordinates = new ArrayList<>();
+                for (DataSnapshot s : dataSnapshot.getChildren()) {
+                    MarkerData markerData;
+                    //saveMarkerInfoToDatabase(markerData);
+
+                    double lat = (double) s.child("Lat").getValue();
+                    double lng = (double) s.child("Lng").getValue();
+                    String title = s.child("title").getValue().toString();
+                    String snippet = s.child("snippet").getValue().toString();
+
+                    markerData = new MarkerData(lat, lng, title, snippet);
+                    coordinates.add(markerData);
+                }
+                for (int i = 0; i < coordinates.size(); i++) {
+
+                    createMarker(coordinates.get(i).getLat(), coordinates.get(i).getLng(), coordinates.get(i).getTitle(), coordinates.get(i).getSnippet());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+/*
         LatLng NUS = new LatLng(1.290665504, 103.772663576);
-        map.addMarker(new MarkerOptions().position(NUS).title("NUS"));
+        map.addMarker(new MarkerOptions().position(NUS).title("NUS").snippet("School"));
         map.moveCamera(CameraUpdateFactory.newLatLng(NUS));
+        */
+
+
+
     }
+
+    protected Marker createMarker(double lat, double lng, String title, String snippet) {
+
+        return this.map.addMarker(new MarkerOptions()
+                .position(new LatLng(lat, lng))
+                .anchor(0.5f, 0.5f)
+                .title(title)
+                .snippet(snippet)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_name)));
+    }
+
+    /*
+    private void saveMarkerInfoToDatabase(MarkerData markerData) {
+        HashMap<String, Object> markerDataMap = new HashMap<>();
+        String locationKey = markerData.getTitle();
+        markerDataMap.put("location", locationKey);
+        markerDataMap.put("Lat", markerData.getLat());
+        markerDataMap.put("Lng", markerData.getLng());
+
+        mDatabase.child(locationKey).updateChildren(markerDataMap);
+    }
+  */
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
@@ -140,4 +219,10 @@ public class featureThreeActivity extends FragmentActivity implements OnMapReady
         // (the camera animates to the user's current position).
         return false;
     }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        return false;
+    }
+
 }
