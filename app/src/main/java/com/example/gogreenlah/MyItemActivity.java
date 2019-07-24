@@ -2,7 +2,6 @@ package com.example.gogreenlah;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,17 +19,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyItemActivity extends AppCompatActivity implements ImageAdapter.OnImageClickListener {
+import static java.util.Objects.requireNonNull;
 
-    public static final String EXTRA_URL = "imageUrl";
+public class MyItemActivity extends AppCompatActivity implements ImageAdapter.OnImageClickListener {
 
     private RecyclerView recyclerView;
     private ImageAdapter adapter;
 
-    private DatabaseReference databaseReference;
     private FirebaseUser user;
 
-    private List<String> userItemsID = new ArrayList<>();
     private List<ImageUpload> itemList = new ArrayList<>();
 
     @Override
@@ -44,41 +41,12 @@ public class MyItemActivity extends AppCompatActivity implements ImageAdapter.On
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        // getUserItems();
-
         getItemList();
     }
 
-    private void getUserItems() {
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
-
-        Toast.makeText(this, "getting user item", Toast.LENGTH_SHORT).show();
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
-                    if (postSnapShot.child("itemID").getValue() != null) {
-                        String itemID = postSnapShot.child("itemID").getValue().toString();
-                        Toast.makeText(MyItemActivity.this, itemID, Toast.LENGTH_SHORT).show();
-                        userItemsID.add(itemID);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     private void getItemList() {
-
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
-
-
-        //    Toast.makeText(this, userItemsID.get(j), Toast.LENGTH_SHORT).show();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -88,15 +56,15 @@ public class MyItemActivity extends AppCompatActivity implements ImageAdapter.On
                     if (postSnapShot.child("itemName").getValue() == null){
                         continue;
                     }
-                    String itemName = postSnapShot.child("itemName").getValue().toString();
-                    String itemID = postSnapShot.child("itemID").getValue().toString();
-                    String itemImage = postSnapShot.child("image").getValue().toString();
-                    String itemType = postSnapShot.child("itemType").getValue().toString();
-                    String requestInfo = postSnapShot.child("requestInfo").getValue().toString();
+                    String itemName = requireNonNull(postSnapShot.child("itemName").getValue()).toString();
+                    String itemID = requireNonNull(postSnapShot.child("itemID").getValue()).toString();
+                    String itemImage = requireNonNull(postSnapShot.child("image").getValue()).toString();
+                    String itemType = requireNonNull(postSnapShot.child("itemType").getValue()).toString();
+                    String requestInfo = requireNonNull(postSnapShot.child("requestInfo").getValue()).toString();
                     long number = (long) postSnapShot.child("requestNumber").getValue();
-                    Integer requestNumber = (int) number;
+                    int requestNumber = (int) number;
                     if (postSnapShot.child("itemDescription").getValue() != null) {
-                        String itemDescription = postSnapShot.child("itemDescription").getValue().toString();
+                        String itemDescription = requireNonNull(postSnapShot.child("itemDescription").getValue()).toString();
                         upload = new ImageUpload(itemName, itemType, itemImage, itemID, requestInfo, requestNumber, itemDescription);
 
                     } else {
@@ -121,7 +89,7 @@ public class MyItemActivity extends AppCompatActivity implements ImageAdapter.On
     @Override
     public void onImageClick(int position) {
 
-        Intent intent = new Intent(this, RequestItemActivity.class);
+        Intent intent = new Intent(this, EditItemActivity.class);
         ImageUpload clickedImage = itemList.get(position);
         intent.putExtra("image", clickedImage);
         startActivity(intent);

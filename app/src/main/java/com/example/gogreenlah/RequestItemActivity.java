@@ -103,15 +103,8 @@ public class RequestItemActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-//                            Intent intent = new Intent(RequestItemActivity.this, RequestItemActivity.class);
-//                            intent.putExtra("image", itemRequest);
-//                            startActivity(intent);
-//
-//                            loadingBar.dismiss();
                            Toast.makeText(RequestItemActivity.this, "Requested for item", Toast.LENGTH_SHORT).show();
                         } else {
-//                            loadingBar.dismiss();
-//                            String message = task.getException().toString();
 //                            Toast.makeText(AdminAddNewProductActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                         }
                     }

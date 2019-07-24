@@ -132,12 +132,11 @@ public class NavigationActivity extends AppCompatActivity
 
         if (databaseSet != null) {
             displayProfileInformation();
-            Toast.makeText(this, "image loaded", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "image loaded", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "no profile pic", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     @Override
     public void onBackPressed() {

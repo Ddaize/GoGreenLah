@@ -29,7 +29,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MyItemActivity"></activity>
+        <activity android:name=".EditItemActivity"></activity>
+        <activity android:name=".MyItemActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity
             android:name=".NavigationActivity"

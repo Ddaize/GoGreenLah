@@ -3,6 +3,7 @@ package com.example.gogreenlah;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+
+import static java.util.Objects.requireNonNull;
 
 public class ImageDetails extends AppCompatActivity implements View.OnClickListener {
 
@@ -61,7 +65,7 @@ public class ImageDetails extends AppCompatActivity implements View.OnClickListe
         if (imageID != null) {
             displaySpecificProductInformation();
         } else {
-           Toast.makeText(ImageDetails.this, "null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ImageDetails.this, "null", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -72,8 +76,10 @@ public class ImageDetails extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String name = dataSnapshot.child("itemName").getValue().toString();
-                    imageName.setText(name);
+                    if (dataSnapshot.child("itemName").getValue() != null) {
+                        String name = requireNonNull(dataSnapshot.child("itemName").getValue()).toString();
+                        imageName.setText(name);
+                    }
                 }
             }
 
@@ -85,23 +91,29 @@ public class ImageDetails extends AppCompatActivity implements View.OnClickListe
     }
 
     private void updateItem() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                itemDescription = editTextImageDescription.getText().toString();
-                    ImageUpload imageUpload = dataSnapshot.getValue(ImageUpload.class);
-                  //  imageUpload.setItemDescription(itemDescription);
-                }
-                saveProductInfoToDatabase();
-            }
+        saveProductInfoToDatabase();
+        saveProductInfoToUserDatabase();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+    }
 
-            }
-        });
+    private void saveProductInfoToUserDatabase() {
 
+        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(user).child(imageID);
+        HashMap<String, Object> productMap = new HashMap<>();
+
+        productMap.put("itemDescription", itemDescription);
+
+        databaseReference.updateChildren(productMap)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                        } else {
+                        }
+                    }
+                });
     }
 
     private void saveProductInfoToDatabase() {
@@ -114,15 +126,7 @@ public class ImageDetails extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-//                            Intent intent = new Intent(AdminAddNewProductActivity.this, AdminCategoryActivity.class);
-//                            startActivity(intent);
-//
-//                            loadingBar.dismiss();
-//                            Toast.makeText(AdminAddNewProductActivity.this, "Product is added successfully..", Toast.LENGTH_SHORT).show();
                         } else {
-//                            loadingBar.dismiss();
-//                            String message = task.getException().toString();
-//                            Toast.makeText(AdminAddNewProductActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -131,7 +135,16 @@ public class ImageDetails extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view == updateItemButton) {
-            updateItem();
+            itemDescription = editTextImageDescription.getText().toString();
+
+            if (TextUtils.isEmpty(itemDescription)) {
+                Toast.makeText(this, "Please enter product description...", Toast.LENGTH_SHORT).show();
+
+            } else {
+                updateItem();
+                Toast.makeText(this, "Item is updated...", Toast.LENGTH_SHORT).show();
+
+            }
         }
     }
 }

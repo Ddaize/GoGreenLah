@@ -104,7 +104,7 @@ public class featureTwoActivity extends AppCompatActivity implements OnImageClic
         });
     }
 
-    public void getSelectedCategoryItems (String selected) {
+    private void getSelectedCategoryItems (String selected) {
 
         uploadsFilteredList.clear();
 

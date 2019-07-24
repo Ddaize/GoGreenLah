@@ -199,11 +199,12 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void saveProductInfoToDatabase() {
+
         HashMap<String, Object> productMap = new HashMap<>();
         productMap.put("itemID", productRandomKey);
         productMap.put("date", saveCurrentDate);
         productMap.put("time", saveCurrentTime);
-        productMap.put("itemDescription", null);
+        productMap.put("itemDescription", " ");
         productMap.put("image", downloadImageUrl);
         productMap.put("itemType", itemType);
         productMap.put("requestNumber", requestNumber);
@@ -230,7 +231,6 @@ public class featureOneActivity extends AppCompatActivity implements View.OnClic
 
         HashMap<String, Object> productMap = new HashMap<>();
 
-        //add to this
         //productMap.put("itemID", productRandomKey);
         productMap.put("itemID", productRandomKey);
         productMap.put("date", saveCurrentDate);
