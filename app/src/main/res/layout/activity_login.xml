@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/login_leaf_background">
 
     <LinearLayout
         android:gravity="center_vertical"
@@ -13,6 +14,7 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/textViewGoGreenLah"
             android:layout_gravity="center_horizontal"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="wrap_content"
@@ -26,7 +28,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter your email"
-            android:autofillHints="" />
+            android:autofillHints=""
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/login_user" />
         <EditText
             android:layout_margin="15dp"
             android:inputType="textPassword"
@@ -34,7 +38,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter your password"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/login_key"
+            />
 
         <Button
             android:layout_margin="15dp"

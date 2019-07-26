@@ -7,46 +7,51 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:gravity="center_vertical"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_gravity="center_horizontal"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User Registration" />
+            android:layout_gravity="center_horizontal"
+            android:text="New user registration"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:layout_margin="15dp"
-            android:inputType="textEmailAddress"
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter your email" />
-        <EditText
             android:layout_margin="15dp"
-            android:inputType="textPassword"
+            android:drawableLeft="@drawable/login_user"
+            android:drawablePadding="10dp"
+            android:hint="Enter your email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter your password" />
+            android:layout_margin="15dp"
+            android:drawableLeft="@drawable/login_key"
+            android:drawablePadding="10dp"
+            android:hint="Enter your password"
+            android:inputType="textPassword" />
 
         <Button
-            android:layout_margin="15dp"
             android:id="@+id/buttonRegister"
-            android:text="Register User"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="Register User" />
 
         <TextView
-            android:textAlignment="center"
-            android:text="Already registered? Sign in here"
             android:id="@+id/textViewSignIn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Already registered? Sign in here"
+            android:textAlignment="center" />
 
 
     </LinearLayout>

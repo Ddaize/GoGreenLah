@@ -80,7 +80,7 @@ public class NavigationActivity extends AppCompatActivity
             user = firebaseAuth.getCurrentUser();
 
             textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
-            textViewUserEmail.setText(" welcome " + user.getEmail());
+            textViewUserEmail.setText("  welcome " + user.getEmail());
 
             imageViewProfilePic = headerView.findViewById(R.id.imageViewProfilePic);
             textViewUserEmail = headerView.findViewById(R.id.textViewProfileName);

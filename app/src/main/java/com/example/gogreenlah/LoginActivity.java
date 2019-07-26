@@ -2,6 +2,7 @@ package com.example.gogreenlah;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -23,7 +24,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button buttonSignIn;
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private TextView textViewSignUp;
+    private TextView textViewSignUp, textViewGoGreenLah;
 
     private FirebaseAuth firebaseAuth;
 
@@ -35,13 +36,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        Typeface myFont = Typeface.createFromAsset(getAssets(), "fonts/AlexandriaFLF-BoldItalic.ttf");
 
+        firebaseAuth = FirebaseAuth.getInstance();
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
         textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
+        textViewGoGreenLah = findViewById(R.id.textViewGoGreenLah);
+
+        textViewGoGreenLah.setTypeface(myFont);
 
         progressDialog = new ProgressDialog(this);
 
