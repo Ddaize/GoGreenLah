@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button buttonSignIn;
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private TextView textViewSignUp, textViewGoGreenLah;
+    private TextView textViewSignUp, goGreenLah;
 
     private FirebaseAuth firebaseAuth;
 
@@ -44,9 +44,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
         textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
-        textViewGoGreenLah = findViewById(R.id.textViewGoGreenLah);
 
-        textViewGoGreenLah.setTypeface(myFont);
+        goGreenLah = (TextView) findViewById(R.id.textViewGoGreenLah);
+
+        goGreenLah.setTypeface(myFont);
 
         progressDialog = new ProgressDialog(this);
 

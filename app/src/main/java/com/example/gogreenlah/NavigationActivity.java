@@ -1,6 +1,7 @@
 package com.example.gogreenlah;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -79,8 +80,11 @@ public class NavigationActivity extends AppCompatActivity
 
             user = firebaseAuth.getCurrentUser();
 
+            Typeface myFont = Typeface.createFromAsset(getAssets(), "fonts/AlexandriaFLF-BoldItalic.ttf");
+
             textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
             textViewUserEmail.setText("  welcome " + user.getEmail());
+            textViewUserEmail.setTypeface(myFont);
 
             imageViewProfilePic = headerView.findViewById(R.id.imageViewProfilePic);
             textViewUserEmail = headerView.findViewById(R.id.textViewProfileName);
