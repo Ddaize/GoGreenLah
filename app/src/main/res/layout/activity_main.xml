@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/login_leaf_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,15 +37,17 @@
             android:layout_margin="15dp"
             android:drawableLeft="@drawable/login_key"
             android:drawablePadding="10dp"
-            android:hint="Enter your password"
+            android:hint="Enter your password (min. 6 characters)"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/buttonRegister"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:textColor="#302810"
+            android:layout_height="41dp"
             android:layout_margin="15dp"
-            android:text="Register User" />
+            android:text="Register User"
+            android:background="@drawable/loginbtn_background"/>
 
         <TextView
             android:id="@+id/textViewSignIn"
