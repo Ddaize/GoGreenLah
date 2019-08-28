@@ -6,19 +6,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_launcher_background"
+            android:icon="@drawable/navi_home_page_dark"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_my_items"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/navi_my_items"
             android:title="@string/menu_gallery" />
-        <item
-            android:id="@+id/nav_requsted"
-            android:icon="@drawable/ic_launcher_background"
-            android:title="@string/menu_requested_item"/>
+        <!--<item-->
+            <!--android:id="@+id/nav_requsted"-->
+            <!--android:icon="@drawable/ic_launcher_background"-->
+            <!--android:title="@string/menu_requested_item"/>-->
         <item
             android:id="@+id/nav_profile_update"
-            android:icon="@drawable/ic_launcher_background"
+            android:icon="@drawable/navi_profile_update"
             android:title="@string/menu_userProfile"
             />
     </group>

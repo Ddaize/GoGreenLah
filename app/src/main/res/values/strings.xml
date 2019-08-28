@@ -7,6 +7,7 @@
         <item>Electronic</item>
         <item>Clothes</item>
         <item>Stationary</item>
+        <item>Books</item>
         <item>Others</item>
     </string-array>
 
@@ -16,6 +17,7 @@
         <item>Electronic</item>
         <item>Clothes</item>
         <item>Stationary</item>
+        <item>Books</item>
         <item>Others</item>
     </string-array>
     <string name="title_activity_request_item">requestItemActivity</string>

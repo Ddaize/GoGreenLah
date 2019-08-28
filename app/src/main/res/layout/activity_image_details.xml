@@ -21,10 +21,11 @@
         android:layout_toRightOf="@id/imageViewUpload"
         android:textColor="@android:color/black"
         android:textSize="17sp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Image Description"
+        android:text="Item Description"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/imageViewUpload"
         android:textColor="@android:color/black"
@@ -38,7 +39,8 @@
         android:layout_marginTop="30dp"
         android:layout_below="@+id/imageViewUpload"
         android:layout_centerHorizontal="true"
-        android:hint=" Enter image description"/>
+        android:hint="  Enter item description here \n \n e.g. \n - condition of item \n - specifications \n - collection details"
+        android:gravity="top"/>
 
     <Button
         android:id="@+id/updateItemButton"
@@ -48,7 +50,6 @@
         android:layout_below="@+id/editTextImageDescription"
         android:text="update item"
         />
-
 
 
 </RelativeLayout>

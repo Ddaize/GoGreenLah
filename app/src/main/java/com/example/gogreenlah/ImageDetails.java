@@ -142,7 +142,7 @@ public class ImageDetails extends AppCompatActivity implements View.OnClickListe
 
             } else {
                 updateItem();
-                Toast.makeText(this, "Item is updated...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Item is updated", Toast.LENGTH_LONG).show();
 
             }
         }

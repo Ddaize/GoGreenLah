@@ -186,8 +186,6 @@ public class NavigationActivity extends AppCompatActivity
         } else if (id == R.id.nav_my_items) {
             startActivity(new Intent(this, MyItemActivity.class));
 
-        } else if (id == R.id.nav_requsted) {
-
         } else if (id == R.id.nav_profile_update) {
             startActivity(new Intent(this, UserProfileActivity.class));
         }

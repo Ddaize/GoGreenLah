@@ -46,7 +46,8 @@
         android:scrollbars="vertical"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/textViewImageDescription"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:gravity="top" />
 
     <EditText
         android:id="@+id/editTextRequestInfo"
